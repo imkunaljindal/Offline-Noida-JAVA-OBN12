@@ -25,12 +25,14 @@ public class ArrayOperations {
         int avg = sum/n;
 
         // largest
-        int mx = arr[0];
-        for(int i=1;i<n;i++) {
+        int mx = Integer.MIN_VALUE;
+        for(int i=0;i<n;i++) {
             if(arr[i] > mx) {
                 mx = arr[i];
             }
         }
+
+        //int arr1[] = {1,2,3,4};
 
         System.out.print(sum + " " + avg + " " + mx);
     }

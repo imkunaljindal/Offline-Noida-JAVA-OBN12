@@ -23,8 +23,12 @@ public class Concept {
 
         //System.out.println(arr[5]);
 
-        int sum = 5;
-        sum = sum + 10;
-        System.out.println(sum);
+//        int sum = 5;
+//        sum = sum + 10;
+//        System.out.println(sum);
+//
+//        System.out.println(-5%3);
+
+        int arr1[] = {1,2,3,4,5};
     }
 }
