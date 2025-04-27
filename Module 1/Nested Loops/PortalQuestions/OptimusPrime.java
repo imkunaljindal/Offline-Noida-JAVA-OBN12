@@ -4,8 +4,15 @@ public class OptimusPrime {
 
     static boolean checkPrime(int n) {
 
-        for(int i=2;i<=n-1;i++) {
-            if(n%i==0) {
+//        for(int i=2;i<=n-1;i++) {
+//            if(n%i==0) {
+//                return false;
+//            }
+//        }
+
+        // O(sqrt(n))
+        for(int i=2;i*i<=n;i++) {
+            if(n%i==0){
                 return false;
             }
         }

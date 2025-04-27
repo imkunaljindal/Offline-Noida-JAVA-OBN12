@@ -12,6 +12,11 @@ public class RotateArray {
         arr[0] = temp;
     }
     public static void rotateArray(int[] nums, int k) {
+        int n = nums.length;
+        k = k%n;
+        if(k<0) {
+            k = k+n;
+        }
         for(int i=0;i<k;i++) {
             rotate(nums, nums.length);
         }
