@@ -1,6 +1,8 @@
+package Problems;
+
 import java.util.*;
 
-public class Main {
+public class PascalTriangle {
     public static void main(String[] args) throws Throwable {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
