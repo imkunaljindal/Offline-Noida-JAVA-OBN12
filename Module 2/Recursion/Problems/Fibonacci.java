@@ -1,7 +1,8 @@
-import java.util.*;
-import static java.lang.Math.ceil;
+package Problems;
 
-public class Main {
+import java.util.*;
+
+public class Fibonacci {
 
     public static int fib(int n ){
         // write code here
