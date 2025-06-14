@@ -22,9 +22,9 @@ class Solution {
         }
 
         comb.add(nums[idx]);
-        helper(nums,idx,comb,ans,target-nums[idx]);
+        helper(nums,idx,comb,ans,target-nums[idx]);  // include
         comb.remove(comb.size()-1); // backtrack
-        helper(nums,idx+1,comb,ans,target);
+        helper(nums,idx+1,comb,ans,target);  //exclude
     }
 }
 public class CombinationSum {
