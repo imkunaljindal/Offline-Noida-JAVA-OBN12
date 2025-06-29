@@ -52,8 +52,24 @@ class LinkedList{
 
 class Solution {
     public static void remove(LinkedList ll, int toRemove, int size){
-        // write your code here
 
+        if(ll.head==null) return;
+        if(toRemove==0) {
+            Node prev = ll.head;
+            ll.head = ll.head.next;
+            prev.next = null;
+            return;
+        }
+
+        Node curr = ll.head;
+        Node prev = null;
+        while(toRemove > 0) {
+            prev = curr;
+            curr = curr.next;
+            toRemove--;
+        }
+        prev.next = curr.next;
+        curr.next = null;
     }
 
 
