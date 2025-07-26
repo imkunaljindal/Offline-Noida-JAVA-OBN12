@@ -1,4 +1,3 @@
-package Problems;
 
 import jdk.jshell.EvalException;
 
@@ -8,17 +7,17 @@ class Solution1{
 
     static void helper(String s, ArrayList<String> ans, int idx, String currentIp, int dots) {
         if(dots>3) {
-            ans.add(currentIp);
+            if(idx==s.length())
+                ans.add(currentIp);
             return;
         }
 
         for(int i=1;i<=3;i++) {
-            if(idx+i>=s.length()) break;
+            if(idx+i>s.length()) break;
             String currNum = s.substring(idx,idx+i); // "2" , "25", "255"
 
-            if((currNum.startsWith("0") && currNum.length()>1) || (Integer.parseInt(currNum)>255)) continue;
+            if((currNum.startsWith("0") && currNum.length()>1) || (i==3 && Integer.parseInt(currNum)>255)) continue;
             if(dots==3) {
-                if(Integer.parseInt(s.substring(idx))>255) continue;
                 helper(s,ans,idx+i,currentIp+s.substring(idx),dots+1);
             }
             else helper(s,ans,idx+i,currentIp+currNum+".",dots+1);
@@ -32,7 +31,7 @@ class Solution1{
     }
 }
 
-public class ValidIp {
+public class Main {
     public static void main(String[] args) throws Throwable {
         Scanner sc = new Scanner(System.in);
         String s = sc.nextLine();
