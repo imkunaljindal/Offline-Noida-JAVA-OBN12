@@ -46,20 +46,37 @@ class Solution{
 
     // 264*8/+3-  -> (4*6)
     static void postfixToInfix(String exp) {
-        Stack<Integer> st = new Stack<>();
-        Stack<String> infix = new Stack<>();
+        Stack<String> st = new Stack<>();
         for(int i=0;i<exp.length();i++) {
             char c = exp.charAt(i);
             if(isOperator(c)) {
-                int op2 = st.pop();  // 6
-                int op1 = st.pop(); // 4
-                infix.push("(" + op1 + c + op2 + ")");
+                String op2 = st.pop();  // 6
+                String op1 = st.pop(); // 4
+                st.push("(" + op1 + c + op2 + ")");
             }
             else {
                 //operand
-                st.push(c-'0');
+                st.push(c + "");
             }
         }
+        System.out.println(st.pop());
+    }
+
+    static void postfixToPrefix(String exp) {
+        Stack<String> st = new Stack<>();
+
+        for(int i=0;i<exp.length();i++) {
+            char c = exp.charAt(i);
+            if(isOperator(c)) {
+                String op2 = st.pop();
+                String op1 = st.pop();
+                st.push(c + op1 + op2);
+            }
+            else {
+                st.push(c+"");
+            }
+        }
+
         System.out.println(st.pop());
     }
 
