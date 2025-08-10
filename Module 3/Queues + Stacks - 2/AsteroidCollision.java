@@ -3,37 +3,41 @@ import java.util.*;
 public class Main {
 
     public static List<Integer> asteroidCollision(int[] asteroids) {
-        int n = asteroids.length;
         Stack<Integer> st = new Stack<>();
+        for (int asteroid: asteroids) {
+            if (asteroid > 0) {
+                // moving towards right
+                st.push(asteroid);
+            } else {
+                // moving towards left
+                // asteroids are moving towards right and are they smaller than me, so I can destroy them
+                while (st.size() > 0 && st.peek() > 0 && st.peek() < Math.abs(asteroid)) {
+                    // destroy these right moving smaller asteroids
+                    st.pop();
+                }
 
-        for(int i=0;i<n;i++) {
-            if(st.isEmpty()) {
-                st.push(asteroids[i]);
-            }
-            else if(asteroids[i] > 0) {
-                st.push(asteroids[i]);
-            }
-            else {
-                if(!st.isEmpty() && st.peek() > Math.abs(asteroids[i])) continue;
-                while(!st.isEmpty() && st.peek()> 0 && st.peek() < Math.abs(asteroids[i])) {
+                if (st.size() > 0 && st.peek() > 0 && st.peek() == Math.abs(asteroid)) {
+                    // asteroid is same size and moving towards right
+                    // I and person in universe will get destroyed
                     st.pop();
+                } else if (st.size() > 0 && st.peek() > 0 && st.peek() > Math.abs(asteroid)) {
+                    // asteroid bigger than me
+                    // I'll destroyed
+                    // don't add anything in stable universe
+                } else {
+                    // cases left: no one in universe or everyone is mpving towards left
+                    st.push(asteroid);
                 }
-                if(!st.isEmpty() && st.peek()> 0 && st.peek()==Math.abs(asteroids[i])) {
-                    st.pop();
-                }
-                if(!st.isEmpty() && st.peek() < 0) {
-                    st.push(asteroids[i]);
-                }
-                if(st.isEmpty()) st.push(asteroids[i]);
             }
         }
 
         List<Integer> ans = new ArrayList<>();
-        while(!st.isEmpty()) {
+        while (st.size() != 0) {
             ans.add(st.pop());
         }
 
         Collections.reverse(ans);
+
         return ans;
     }
 
