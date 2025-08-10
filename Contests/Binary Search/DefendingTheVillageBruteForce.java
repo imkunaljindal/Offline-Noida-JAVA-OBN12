@@ -24,9 +24,7 @@ class Solution
     {
         // Sort the houses array.
         Arrays.sort(houses);
-        // Sort the heater array.
         Arrays.sort(ninjas);
-        // Minimum heating radius.
         int result=0;
 
         int distance=0;
@@ -34,7 +32,6 @@ class Solution
         for(int i=0; i < n; i++){
 
             int j=0;
-            // Found the first heater that is greater than or equal to room i.
             while(j <= m-1 && ninjas[j] < houses[i]){
                 j++;
             }
