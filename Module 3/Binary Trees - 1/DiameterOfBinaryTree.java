@@ -99,7 +99,6 @@ class Solution {
 
         int diaIncRoot = leftPair.height + 1 + rightPair.height;
         int height = Math.max(leftPair.height,rightPair.height) + 1;
-
         int overMaxDia = Math.max(Math.max(diaIncRoot,leftPair.diameter), rightPair.diameter);
 
         return new Pair(height,overMaxDia);
