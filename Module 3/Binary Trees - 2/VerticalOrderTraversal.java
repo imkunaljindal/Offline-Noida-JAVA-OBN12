@@ -1,37 +1,86 @@
-
 import java.util.LinkedList;
 import java.util.Queue;
 import java.io.*;
 import java.util.*;
+import java.lang.*;
 
-class Node{
+class TreeNode{
     int data;
-    Node left;
-    Node right;
-    Node(int data){
+    TreeNode left;
+    TreeNode right;
+    TreeNode(int data){
         this.data = data;
         left=null;
         right=null;
     }
 }
 
+class Pair {
+    TreeNode node;
+    int y;
+    public Pair(TreeNode node, int y) {
+        this.node = node;
+        this.y = y;
+    }
+}
+
+class Solution {
+
+    List<List<Integer>> VerticalTraversal(TreeNode root) {
+        Map<Integer,ArrayList<Integer>> ans = new TreeMap<>();
+
+        Queue<Pair> q = new ArrayDeque<>();
+        q.add(new Pair(root,0));
+
+        while(!q.isEmpty()) {
+            int sz = q.size();
+            for(int i=0;i<sz;i++) {
+                Pair p = q.poll();
+                TreeNode currNode = p.node;
+                int y = p.y;
+
+                if(!ans.containsKey(y)) {
+                    ans.put(y,new ArrayList<>());
+                }
+                ArrayList<Integer> currNodes = ans.get(y);
+                currNodes.add(currNode.data);
+                ans.put(y,currNodes);
+
+                if(currNode.left!=null) {
+                    q.add(new Pair(currNode.left,y-1));
+                }
+
+                if(currNode.right!=null) {
+                    q.add(new Pair(currNode.right,y+1));
+                }
+            }
+        }
+
+        List<List<Integer>> vert = new ArrayList<>();
+        for(int key: ans.keySet()) {
+            vert.add(ans.get(key));
+        }
+        return vert;
+    }
+}
 
 class Main {
-    static Node buildTree(String str){
-        if(str.length()==0 || str.charAt(0)=='N'){
+
+    static TreeNode buildTree(String str) {
+        if(str.length()==0 || str.charAt(0)=='N')
             return null;
-        }
+
         String ip[] = str.split(" ");
-        Node root = new Node(Integer.parseInt(ip[0]));
-        Queue<Node> queue = new LinkedList<>();
+        TreeNode root = new TreeNode(Integer.parseInt(ip[0]));
+        Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
         int i = 1;
         while(queue.size()>0 && i < ip.length) {
-            Node currNode = queue.peek();
+            TreeNode currNode = queue.peek();
             queue.remove();
             String currVal = ip[i];
             if(!currVal.equals("N")) {
-                currNode.left = new Node(Integer.parseInt(currVal));
+                currNode.left = new TreeNode(Integer.parseInt(currVal));
                 queue.add(currNode.left);
             }
             i++;
@@ -39,83 +88,30 @@ class Main {
                 break;
             currVal = ip[i];
             if(!currVal.equals("N")) {
-                currNode.right = new Node(Integer.parseInt(currVal));
+                currNode.right = new TreeNode(Integer.parseInt(currVal));
                 queue.add(currNode.right);
             }
             i++;
         }
         return root;
     }
-    void inOrder(Node node) {
-        if (node == null) {
-            return;
-        }
-        inOrder(node.left);
-        System.out.print(node.data + " ");
-        inOrder(node.right);
-    }
 
     public static void main (String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int t=Integer.parseInt(br.readLine());
-        while(t-- > 0){
+        while(t > 0){
             String s = br.readLine();
-            Node root = buildTree(s);
-            Solution tree = new Solution();
-            ArrayList<Integer> ans = tree.bottomView(root);
-
-            for(Integer num:ans)
-                System.out.print(num+" ");
-
-            System.out.println();
-        }
-    }
-}
-
-
-class Pair {
-    Node node;
-    int y;
-
-    public Pair(Node node, int y) {
-        this.node = node;
-        this.y = y;
-    }
-}
-
-
-class Solution{
-    public ArrayList <Integer> bottomView(Node root)
-    {
-        Queue<Pair> q = new ArrayDeque<>();
-        // <y,value>
-        Map<Integer,Integer> mp = new TreeMap<>();
-
-        q.add(new Pair(root,0));
-        mp.put(0,root.data);
-
-        while(!q.isEmpty()) {
-            int sz = q.size();
-            for(int i=0;i<sz;i++) {
-                Pair p = q.poll();
-                Node currNode = p.node;
-                int y = p.y;
-
-                mp.put(y,currNode.data);
-                if(currNode.left!=null) {
-                    q.add(new Pair(currNode.left,y-1));
+            TreeNode root = buildTree(s);
+            Solution ob = new Solution();
+            List<List<Integer>> ans = ob.VerticalTraversal(root);
+            for(int i = 0; i < ans.size(); i++) {
+                for(int a : ans.get(i)) {
+                    System.out.print(a + " ");
                 }
-                if(currNode.right!=null) {
-                    q.add(new Pair(currNode.right,y+1));
-                }
+                System.out.println();
             }
-        }
 
-        ArrayList<Integer> ans = new ArrayList<>();
-        for(int value: mp.values()) {
-            ans.add(value);
+           //System.out.println();    t--;
         }
-
-        return ans;
     }
 }
