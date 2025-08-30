@@ -64,7 +64,7 @@ class Solution{
             if(root.left==null) return root.right;
             if(root.right==null) return root.left;
             Node inorderSucc = findMin(root.right);
-            root.val = inorderSucc.val;
+            root.val = inorderSucc.val; // ovverwrite
             deleteNode(root.right,inorderSucc.val);
         }
 
