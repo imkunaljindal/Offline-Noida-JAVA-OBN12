@@ -1,6 +1,6 @@
 import java.util.*;
 
-class Solution{
+class Solution1{
     public int numRabbits(int[] answers) {
         Map<Integer,Integer> freq = new HashMap<>();
         for(int i=0;i<answers.length;i++) {
@@ -18,7 +18,7 @@ class Solution{
     }
 }
 
-public class Main {
+public class RabbitsInForest {
     public static void main(String[] args) {
         Scanner scn = new Scanner(System.in);
         int n = scn.nextInt();
@@ -26,7 +26,7 @@ public class Main {
         for (int i = 0; i < n; i++) {
             arr[i] = scn.nextInt();
         }
-        Solution Obj =  new Solution();
+        Solution1 Obj =  new Solution1();
         System.out.println(Obj.numRabbits(arr));
     }
 }

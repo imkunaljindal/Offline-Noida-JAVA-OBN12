@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Main
+public class SnapshotArray
 {
     static TreeMap<Integer, Integer>[] A;
     static int snap_id = 0;
