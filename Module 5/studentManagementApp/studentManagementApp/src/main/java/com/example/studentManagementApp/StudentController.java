@@ -1,28 +1,63 @@
 package com.example.studentManagementApp;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/student")
 public class StudentController {
 
-    HashMap<Integer, Student> studentDb = new HashMap<>();
+
+
+    @Autowired
+    StudentService studentService;
 
     @GetMapping("/welcome")
     public String getWelcome() {
         return "Welcome Student";
     }
 
-    @GetMapping("/student")
+    @GetMapping
     public Student getStudentById(@RequestParam("id") int id) {
-        if(!studentDb.containsKey(id)) {
-            return null;
-        }
-        return studentDb.get(id);
+        return studentService.getStudentById(id);
     }
+
+    @PostMapping
+    public String addStudent(@RequestBody Student student) {
+        return studentService.addStudent(student);
+    }
+
+    @GetMapping("/{id}")
+    public Student getStudentByIdPath(@PathVariable("id") int id) {
+       return studentService.getStudentById(id);
+    }
+
+    @PutMapping("/id/{id}/age/{age}")
+    public String updateAge(@PathVariable("id") int id,
+                            @PathVariable("age") int age) {
+        return studentService.updateAge(id, age);
+    }
+
+    @PutMapping
+    public String updateAgeByRequestParam(@RequestParam("id") int id,
+                            @RequestParam("age") int age) {
+        return studentService.updateAge(id,age);
+    }
+
+    // Get the list of all students
+    @GetMapping("/all")
+    public List<Student> getAllStudents() {
+        return studentService.getAllStudents();
+    }
+
+    // Delete a student
+    @DeleteMapping
+    public String deleteStudent(@RequestParam("id") int id) {
+        return studentService.deleteStudent(id);
+    }
+
+
 }
