@@ -1,5 +1,6 @@
-package com.example.studentManagementApp;
+package com.example.studentManagementApp.repository;
 
+import com.example.studentManagementApp.model.Student;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

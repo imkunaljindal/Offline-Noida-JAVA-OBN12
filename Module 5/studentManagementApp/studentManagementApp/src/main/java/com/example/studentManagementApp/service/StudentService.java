@@ -1,5 +1,8 @@
-package com.example.studentManagementApp;
+package com.example.studentManagementApp.service;
 
+import com.example.studentManagementApp.exceptions.StudentNotFoundException;
+import com.example.studentManagementApp.model.Student;
+import com.example.studentManagementApp.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +15,11 @@ public class StudentService {
     StudentRepository studentRepository;
 
     public Student getStudentById(int id) {
-       return studentRepository.getStudentById(id);
+       Student student = studentRepository.getStudentById(id);
+       if(student==null) {
+           throw new StudentNotFoundException("Student with id: "+id+ " not found.");
+       }
+       return student;
     }
 
     public String addStudent(Student student) {
