@@ -1,5 +1,6 @@
 package com.example.studentManagementApp.repository;
 
+import com.example.studentManagementApp.exceptions.StudentNotFoundException;
 import com.example.studentManagementApp.model.Student;
 import org.springframework.stereotype.Repository;
 
@@ -29,7 +30,7 @@ public class StudentRepository {
 
     public String updateAge(int id, int age) {
         if(!studentDb.containsKey(id)) {
-            return "Invalid id";
+            throw new StudentNotFoundException("Invalid id: "+id);
         }
         Student existingStudent = studentDb.get(id);
         existingStudent.setAge(age);
