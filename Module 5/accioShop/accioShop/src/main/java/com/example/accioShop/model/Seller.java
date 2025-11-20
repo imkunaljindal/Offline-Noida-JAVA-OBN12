@@ -4,6 +4,7 @@ import com.example.accioShop.enums.Gender;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.CodePointLength;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -29,10 +33,8 @@ public class Seller {
     private String pan;
 
     @Column
-    @Min(value = 0)
-    @Max(value = 5)
-    private int rating;
-
-    @Column
     private String email;
+
+    @OneToMany(mappedBy = "seller")
+    List<Product> products = new ArrayList<>();
 }

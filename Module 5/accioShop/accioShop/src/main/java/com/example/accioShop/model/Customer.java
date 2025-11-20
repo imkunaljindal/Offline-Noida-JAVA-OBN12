@@ -9,6 +9,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Getter
@@ -36,4 +39,10 @@ public class Customer {
 
     @Column(length = 10)
     private String mobNo;
+
+//    @OneToOne(mappedBy = "customer")
+//    Address address;
+
+    @OneToMany(mappedBy = "customer")
+    List<Review> reviews = new ArrayList<>();
 }
