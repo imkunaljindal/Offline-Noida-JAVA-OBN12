@@ -1,10 +1,8 @@
 package com.example.accioShop.model;
 
 import com.example.accioShop.enums.Gender;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
@@ -24,6 +22,7 @@ import java.util.List;
 public class Seller {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column
@@ -36,5 +35,6 @@ public class Seller {
     private String email;
 
     @OneToMany(mappedBy = "seller")
+    @JsonIgnore
     List<Product> products = new ArrayList<>();
 }

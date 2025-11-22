@@ -1,15 +1,15 @@
 package com.example.accioShop.model;
 
 import com.example.accioShop.enums.Gender;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -18,9 +18,11 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Customer {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column
@@ -43,6 +45,11 @@ public class Customer {
 //    @OneToOne(mappedBy = "customer")
 //    Address address;
 
-    @OneToMany(mappedBy = "customer")
+    @CreationTimestamp
+    Date createdAt;
+
+    @OneToMany
+    @JoinColumn(name="customer_id")
+    @JsonBackReference
     List<Review> reviews = new ArrayList<>();
 }

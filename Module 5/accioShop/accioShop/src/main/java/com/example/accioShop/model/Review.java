@@ -1,5 +1,8 @@
 package com.example.accioShop.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -18,6 +21,7 @@ public class Review {
 
     @Id
     @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column
@@ -30,9 +34,11 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name="customer_id")
+    @JsonManagedReference
     Customer customer;
 
     @ManyToOne
     @JoinColumn(name="product_id")
+    @JsonIgnore
     Product product;
 }

@@ -1,6 +1,7 @@
 package com.example.accioShop.model;
 
 import com.example.accioShop.enums.Category;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,6 +20,7 @@ public class Product {
 
     @Id
     @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
     @Column
