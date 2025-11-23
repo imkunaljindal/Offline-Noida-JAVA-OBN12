@@ -1,5 +1,7 @@
 package com.example.accioShop.controller;
 
+import com.example.accioShop.dto.request.CustomerRequest;
+import com.example.accioShop.dto.response.CustomerResponse;
 import com.example.accioShop.exception.CustomerNotFoundException;
 import com.example.accioShop.model.Customer;
 import com.example.accioShop.service.CustomerService;
@@ -18,16 +20,17 @@ public class CustomerController {
     CustomerService customerService;
 
     @PostMapping
-    public ResponseEntity addCustomer(@RequestBody Customer customer) {
-        log.info("Recieved customer object: {}", customer);
-        Customer savedCustomer = customerService.addCustomer(customer);
-        return new ResponseEntity(savedCustomer, HttpStatus.CREATED);
+    public ResponseEntity addCustomer(@RequestBody CustomerRequest customerRequest) {
+        log.info("Recieved customer object: {}", customerRequest);
+        CustomerResponse customerResponse = customerService.addCustomer(customerRequest);
+        return new ResponseEntity(customerResponse, HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity getCustomerById(@RequestParam("id") int id) {
         try {
-            return new ResponseEntity(customerService.getCustomerById(id), HttpStatus.FOUND);
+            CustomerResponse response = customerService.getCustomerById(id);
+            return new ResponseEntity(response, HttpStatus.FOUND);
         } catch (CustomerNotFoundException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
