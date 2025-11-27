@@ -5,6 +5,7 @@ import com.example.accioShop.dto.response.CustomerResponse;
 import com.example.accioShop.exception.CustomerNotFoundException;
 import com.example.accioShop.model.Customer;
 import com.example.accioShop.repository.CustomerRepository;
+import com.example.accioShop.transformer.CustomerTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +19,11 @@ public class CustomerService {
 
     public CustomerResponse addCustomer(CustomerRequest customerRequest) {
         // Step 1 - Request DTO - Entity
-        Customer customer = customerRequestToCustomer(customerRequest);
+        Customer customer = CustomerTransformer.customerRequestToCustomer(customerRequest);
         // Save entity
         Customer savedCustomer = customerRepository.save(customer);
         // Step 3 - Convert saved entity into response
-        return customerToCustomerResponse(savedCustomer);
+        return CustomerTransformer.customerToCustomerResponse(savedCustomer);
     }
 
     public CustomerResponse getCustomerById(int id) {
@@ -31,32 +32,6 @@ public class CustomerService {
             throw new CustomerNotFoundException("Invalid id");
         }
         Customer customer = optionalCustomer.get();
-        return customerToCustomerResponse(customer);
-    }
-
-    public CustomerResponse customerToCustomerResponse(Customer customer) {
-       return CustomerResponse.builder()
-               .name(customer.getName())
-               .createdAt(customer.getCreatedAt())
-               .email(customer.getEmail())
-               .build();
-    }
-
-    public Customer customerRequestToCustomer(CustomerRequest customerRequest) {
-//        Customer customer = new Customer();
-//        customer.setName(customerRequest.getName());
-//        customer.setAge(customerRequest.getAge());
-//        customer.setEmail(customerRequest.getEmail());
-//        customer.setMobNo(customerRequest.getMobNo());
-//        customer.setGender(customerRequest.getGender());
-//        return customer;
-
-        return Customer.builder()
-                .name(customerRequest.getName())
-                .age(customerRequest.getAge())
-                .email(customerRequest.getEmail())
-                .mobNo(customerRequest.getMobNo())
-                .gender(customerRequest.getGender())
-                .build();
+        return CustomerTransformer.customerToCustomerResponse(customer);
     }
 }

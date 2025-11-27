@@ -1,5 +1,7 @@
 package com.example.accioShop.controller;
 
+import com.example.accioShop.dto.request.SellerRequest;
+import com.example.accioShop.dto.response.SellerResponse;
 import com.example.accioShop.model.Seller;
 import com.example.accioShop.service.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +20,8 @@ public class SellerController {
     SellerService sellerService;
 
     @PostMapping
-    public ResponseEntity addSeller(@RequestBody Seller seller) {
-        Seller savedSeller = sellerService.addSeller(seller);
-        return new ResponseEntity(savedSeller, HttpStatus.CREATED);
+    public ResponseEntity addSeller(@RequestBody SellerRequest sellerRequest) {
+        SellerResponse response = sellerService.addSeller(sellerRequest);
+        return new ResponseEntity(response, HttpStatus.CREATED);
     }
 }
