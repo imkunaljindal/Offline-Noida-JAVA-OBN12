@@ -1,10 +1,7 @@
 package com.example.accioShop.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @NoArgsConstructor
@@ -12,6 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name="address")
+@Builder
 public class Address {
 
     @Id
@@ -30,7 +28,7 @@ public class Address {
     @Column
     private int pinCode;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
     Customer customer;
 }

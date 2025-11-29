@@ -2,6 +2,7 @@ package com.example.accioShop.model;
 
 import com.example.accioShop.enums.Gender;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -50,7 +51,10 @@ public class Customer {
     Date createdAt;
 
     @OneToMany
-    @JoinColumn(name="customer_id")
     @JsonBackReference
     List<Review> reviews = new ArrayList<>();
+
+    @OneToMany
+    @JsonIgnore
+    List<OrderEntity> orders = new ArrayList<>();
 }
