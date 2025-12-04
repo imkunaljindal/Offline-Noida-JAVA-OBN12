@@ -1,0 +1,3 @@
+- https://www.baeldung.com/rest-template
+- https://www.baeldung.com/spring-cloud-openfeign
+- Make a small mini project using restTemplate
