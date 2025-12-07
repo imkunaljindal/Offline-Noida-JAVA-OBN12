@@ -1,0 +1,5 @@
+- Constructor injection vs Field injection vs setter injection
+- controller testing
+- setup zwigato and complete model layers
+- ddl-auto
+- Mocking
