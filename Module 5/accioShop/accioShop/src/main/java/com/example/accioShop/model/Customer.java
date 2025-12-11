@@ -50,11 +50,11 @@ public class Customer {
     @CreationTimestamp
     Date createdAt;
 
-    @OneToMany
+    @OneToMany(mappedBy = "customer")
     @JsonBackReference
     List<Review> reviews = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(mappedBy = "customer")
     @JsonIgnore
     List<OrderEntity> orders = new ArrayList<>();
 }
