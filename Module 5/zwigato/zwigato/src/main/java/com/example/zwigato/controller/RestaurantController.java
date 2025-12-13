@@ -1,13 +1,14 @@
 package com.example.zwigato.controller;
 
+import com.example.zwigato.dto.response.MenuItemResponse;
 import com.example.zwigato.service.RestaurantService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/restaurant")
@@ -23,5 +24,13 @@ public class RestaurantController {
                 HttpStatus.CREATED);
     }
 
-    // API to change the is_open status
+    // API to get all the menu items of a restaurant
+    /**
+     * @Param - restaurantId
+     */
+    @GetMapping
+    public ResponseEntity getAllMenuItems(@RequestParam int restaurantId) {
+        List<MenuItemResponse> menuItems = restaurantService.getAllMenuItems(restaurantId);
+        return new ResponseEntity(menuItems,HttpStatus.OK);
+    }
 }

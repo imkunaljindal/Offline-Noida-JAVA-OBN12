@@ -30,7 +30,7 @@ public class Customer {
     private Gender gender;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn
+    @JoinColumn(name = "customer_id")
     private List<Address> address;
 
     @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
